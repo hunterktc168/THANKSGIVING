@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   VAULT SEMANTIC TOKEN SCHEMA
+   --------------------------------------------------------------------------
+   This file is the SINGLE SOURCE OF TRUTH for the vault's design contract.
+   Components never hardcode values — they consume these semantic variables,
+   which are surfaced to Tailwind through tailwind.config.ts.
+
+   A brand preset overrides a SUBSET of these variables (see src/lib/brands),
+   normally by scoping them onto a wrapper element. Because the primitives are
+   identical, only the tokens differ — "ingredients, not meals".
+
+   Colors are stored as space-separated RGB CHANNELS (not hex/rgb()) so that
+   Tailwind's opacity modifier works: `rgb(var(--surface) / 0.5)`.
+   ========================================================================== */
+
+@layer base {
+	:root {
+		color-scheme: light;
+
+		/* --- Typography ------------------------------------------------- */
+		--font-sans:
+			ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+			sans-serif;
+		--font-display: ui-serif, Georgia, 'Times New Roman', serif;
+		--font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+		/* Fluid modular type scale (~1.2 ratio) using clamp(). */
+		--step--2: clamp(0.694rem, 0.665rem + 0.14vw, 0.772rem);
+		--step--1: clamp(0.833rem, 0.787rem + 0.23vw, 0.963rem);
+		--step-0: clamp(1rem, 0.932rem + 0.34vw, 1.2rem);
+		--step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+		--step-2: clamp(1.44rem, 1.3rem + 0.7vw, 1.875rem);
+		--step-3: clamp(1.728rem, 1.53rem + 0.99vw, 2.344rem);
+		--step-4: clamp(2.074rem, 1.8rem + 1.37vw, 2.93rem);
+		--step-5: clamp(2.488rem, 2.11rem + 1.89vw, 3.662rem);
+
+		--leading-tight: 1.1;
+		--leading-snug: 1.25;
+		--leading-normal: 1.5;
+		--leading-relaxed: 1.65;
+		--measure: 65ch;
+
+		/* --- Spacing (fluid) -------------------------------------------- */
+		--space-3xs: clamp(0.25rem, 0.24rem + 0.07vw, 0.313rem);
+		--space-2xs: clamp(0.5rem, 0.47rem + 0.14vw, 0.625rem);
+		--space-xs: clamp(0.75rem, 0.71rem + 0.21vw, 0.938rem);
+		--space-sm: clamp(1rem, 0.95rem + 0.27vw, 1.25rem);
+		--space-md: clamp(1.5rem, 1.42rem + 0.41vw, 1.875rem);
+		--space-lg: clamp(2rem, 1.89rem + 0.55vw, 2.5rem);
+		--space-xl: clamp(3rem, 2.84rem + 0.82vw, 3.75rem);
+		--space-2xl: clamp(4rem, 3.78rem + 1.09vw, 5rem);
+		--space-3xl: clamp(6rem, 5.67rem + 1.63vw, 7.5rem);
+		--space-4xl: clamp(8rem, 7.57rem + 2.18vw, 10rem);
+
+		/* --- Radius & elevation ----------------------------------------- */
+		--radius-sm: 0.125rem;
+		--radius-md: 0.5rem;
+		--radius-lg: 0.875rem;
+		--radius-xl: 1.25rem;
+		--radius-full: 9999px;
+
+		--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.06);
+		--shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.1);
+		--shadow-lg: 0 16px 40px -8px rgb(0 0 0 / 0.16);
+
+		/* --- Motion ----------------------------------------------------- */
+		--dur-fast: 120ms;
+		--dur-base: 240ms;
+		--dur-slow: 480ms;
+		--ease-standard: cubic-bezier(0.2, 0, 0, 1);
+		--ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+		--ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+		--motion-scale: 1;
+		--motion-distance: 1rem;
+
+		/* --- Layout grid ------------------------------------------------ */
+		--grid-min: 18rem;
+		--grid-gap: var(--space-md);
+
+		/* --- Color (RGB channel triplets) ------------------------------- */
+		--canvas: 250 250 249;
+		--surface: 255 255 255;
+		--surface-raised: 255 255 255;
+		--surface-sunken: 244 244 242;
+		--content: 24 24 27;
+		--content-muted: 82 82 91;
+		--content-subtle: 139 139 150;
+		--content-inverse: 250 250 249;
+		--border: 229 229 231;
+		--border-strong: 161 161 170;
+		--brand: 30 41 59;
+		--brand-content: 250 250 249;
+		--accent: 37 99 235;
+		--accent-content: 255 255 255;
+		--success: 22 163 74;
+		--warning: 217 119 6;
+		--danger: 220 38 38;
+		--info: 8 145 178;
+		--focus-ring: 37 99 235;
+		--overlay: 24 24 27;
+	}
+
+	[data-theme='dark'] {
+		color-scheme: dark;
+
+		--canvas: 9 9 11;
+		--surface: 24 24 27;
+		--surface-raised: 39 39 42;
+		--surface-sunken: 17 17 19;
+		--content: 244 244 245;
+		--content-muted: 161 161 170;
+		--content-subtle: 113 113 122;
+		--content-inverse: 24 24 27;
+		--border: 39 39 42;
+		--border-strong: 82 82 91;
+		--brand: 226 232 240;
+		--brand-content: 24 24 27;
+		--accent: 96 165 250;
+		--accent-content: 17 24 39;
+		--success: 34 197 94;
+		--warning: 245 158 11;
+		--danger: 248 113 113;
+		--info: 34 211 238;
+		--focus-ring: 96 165 250;
+		--overlay: 0 0 0;
+	}
+
+	/* --- Base element defaults --------------------------------------- */
+	html {
+		-webkit-text-size-adjust: 100%;
+		text-rendering: optimizeLegibility;
+	}
+
+	body {
+		min-height: 100dvh;
+		background-color: rgb(var(--canvas));
+		color: rgb(var(--content));
+		font-family: var(--font-sans);
+		font-size: var(--step-0);
+		line-height: var(--leading-normal);
+		-webkit-font-smoothing: antialiased;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: var(--font-display);
+		font-weight: 600;
+		line-height: var(--leading-tight);
+		text-wrap: balance;
+	}
+
+	p,
+	li,
+	figcaption,
+	blockquote {
+		text-wrap: pretty;
+	}
+
+	:focus-visible {
+		outline: 2px solid rgb(var(--focus-ring));
+		outline-offset: 2px;
+	}
+
+	::selection {
+		background-color: rgb(var(--brand));
+		color: rgb(var(--brand-content));
+	}
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   --------------------------------------------------------------------------
+   Zero out every duration/scale token so ALL motion collapses to a no-op.
+
+   Applied to the universal selector with `!important` on purpose: a brand
+   preset injects its tokens as an INLINE style on a wrapper element, and an
+   inline declaration on that element would otherwise win over a `:root`-only
+   rule. The universal `!important` beats inline styles, guaranteeing the
+   accessibility override always applies regardless of brand.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	::before,
+	::after {
+		--dur-fast: 0ms !important;
+		--dur-base: 0ms !important;
+		--dur-slow: 0ms !important;
+		--motion-scale: 0 !important;
+		--motion-distance: 0rem !important;
+		--ease-standard: linear !important;
+		--ease-emphasized: linear !important;
+		--ease-entrance: linear !important;
+	}
+
+	html {
+		scroll-behavior: auto;
+	}
+}
+
+@layer utilities {
+	/* The vault's canonical responsive grid (locked decision #5). */
+	.vault-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min)), 1fr));
+		gap: var(--grid-gap);
+	}
+
+	/* Comfortable reading measure for prose-width content atoms. */
+	.measure {
+		max-width: var(--measure);
+	}
+}
