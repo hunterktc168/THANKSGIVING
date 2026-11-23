@@ -81,6 +81,19 @@
 		--grid-min: 18rem;
 		--grid-gap: var(--space-md);
 
+		/* --- Layout containers ------------------------------------------ */
+		--container-narrow: 48rem;
+		--container-max: 80rem;
+		--container-wide: 90rem;
+
+		/* --- Overlays --------------------------------------------------- */
+		--modal-width: 32rem;
+		--drawer-width: 22rem;
+
+		/* --- Interaction ------------------------------------------------ */
+		/* Minimum hit area for interactive controls (see .tap-target). */
+		--tap-min: 44px;
+
 		/* --- Color (RGB channel triplets) ------------------------------- */
 		--canvas: 250 250 249;
 		--surface: 255 255 255;
@@ -133,6 +146,12 @@
 	html {
 		-webkit-text-size-adjust: 100%;
 		text-rendering: optimizeLegibility;
+		/* Always reserve the scrollbar gutter so scroll-locking an overlay
+		   (e.g. the Drawer) never shifts layout — the CLS fix for locked
+		   decision #2. `overflow-x: clip` keeps full-bleed Sections from
+		   producing a horizontal scrollbar. */
+		scrollbar-gutter: stable;
+		overflow-x: clip;
 	}
 
 	body {
@@ -216,5 +235,35 @@
 	/* Comfortable reading measure for prose-width content atoms. */
 	.measure {
 		max-width: var(--measure);
+	}
+
+	/* Full-bleed breakout (used by Section's `fullBleed` prop): escape a
+	   constrained ancestor and span the viewport. */
+	.bleed {
+		inline-size: 100vw;
+		margin-inline: calc(50% - 50vw);
+	}
+
+	/* Minimum 44px hit area for interactive controls, WITHOUT changing their
+	   visual size: a centered, invisible pseudo-element guarantees the touch
+	   target even for dense/icon-only controls. */
+	.tap-target {
+		position: relative;
+	}
+
+	.tap-target::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		inline-size: max(100%, var(--tap-min));
+		block-size: max(100%, var(--tap-min));
+		transform: translate(-50%, -50%);
+	}
+
+	/* Shared backdrop for native <dialog> modals. */
+	.overlay-backdrop::backdrop {
+		background-color: rgb(var(--overlay) / 0.5);
+		backdrop-filter: blur(2px);
 	}
 }

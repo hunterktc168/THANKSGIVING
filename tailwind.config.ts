@@ -82,7 +82,27 @@ export default {
 				warning: color('--warning'),
 				danger: color('--danger'),
 				info: color('--info'),
-				ring: color('--focus-ring')
+				ring: color('--focus-ring'),
+				overlay: color('--overlay')
+			},
+			maxWidth: {
+				narrow: space('--container-narrow'),
+				content: space('--container-max'),
+				wide: space('--container-wide'),
+				modal: space('--modal-width')
+			},
+			width: {
+				drawer: space('--drawer-width')
+			},
+			minHeight: {
+				tap: space('--tap-min')
+			},
+			minWidth: {
+				tap: space('--tap-min')
+			},
+			gridTemplateColumns: {
+				// Locked decision #5 as a first-class utility.
+				auto: 'repeat(auto-fit, minmax(min(100%, var(--grid-min)), 1fr))'
 			},
 			fontFamily: {
 				sans: 'var(--font-sans)',
